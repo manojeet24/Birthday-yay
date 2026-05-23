@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Sauti 🎉</title>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Righteous&family=Nunito:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --pink: #FF6B9D;
+    --yellow: #FFE566;
+    --teal: #3ECFCF;
+    --purple: #B388FF;
+    --orange: #FF8C42;
+    --green: #69D99F;
+    --red: #FF5252;
+    --bg: #FFF8F0;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    font-family: 'Nunito', sans-serif;
+    overflow-x: hidden;
+    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32'%3E%3Ctext y='24' font-size='24'%3E🎉%3C/text%3E%3C/svg%3E") 16 16, auto;
+  }
+
+  /* ---- CONFETTI ---- */
+  #confetti-canvas {
+    position: fixed; top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none; z-index: 999;
+  }
+
+  /* ---- HERO ---- */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+    padding: 2rem;
+    background: linear-gradient(135deg, #FFF0F8 0%, #FFF8E7 40%, #F0FFFC 100%);
+  }
+
+  .hero-bg-blobs {
+    position: absolute; inset: 0; pointer-events: none; overflow: hidden;
+  }
+  .blob {
+    position: absolute; border-radius: 50%;
+    filter: blur(60px); opacity: 0.35;
+    animation: blobFloat 8s ease-in-out infinite;
+  }
+  .blob1 { width: 320px; height: 320px; background: var(--pink); top: -80px; left: -80px; animation-delay: 0s; }
+  .blob2 { width: 280px; height: 280px; background: var(--yellow); top: 20%; right: -60px; animation-delay: 2s; }
+  .blob3 { width: 200px; height: 200px; background: var(--teal); bottom: 10%; left: 10%; animation-delay: 4s; }
+  .blob4 { width: 240px; height: 240px; background: var(--purple); bottom: -60px; right: 15%; animation-delay: 1s; }
+
+  @keyframes blobFloat {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(15px, -20px) scale(1.05); }
+    66% { transform: translate(-10px, 10px) scale(0.97); }
+  }
+
+  .hero-content { position: relative; z-index: 2; text-align: center; }
+
+  .year-badge {
+    display: inline-block;
+    background: var(--yellow);
+    color: #5a3e00;
+    font-family: 'Righteous', cursive;
+    font-size: 0.85rem;
+    padding: 6px 18px;
+    border-radius: 30px;
+    border: 2.5px solid #c9a000;
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.08em;
+    animation: wiggle 2s ease-in-out infinite;
+  }
+  @keyframes wiggle {
+    0%, 100% { transform: rotate(-2deg); }
+    50% { transform: rotate(2deg); }
+  }
+
+  .hero h1 {
+    font-family: 'Righteous', cursive;
+    font-size: clamp(2.8rem, 10vw, 5.5rem);
+    line-height: 1.05;
+    color: #1a1a2e;
+    text-shadow: 4px 4px 0 var(--pink), 8px 8px 0 rgba(255,107,157,0.2);
+    margin-bottom: 0.5rem;
+  }
+
+  .hero-name {
+    display: block;
+    background: linear-gradient(135deg, var(--pink), var(--purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-size: clamp(3.5rem, 14vw, 7rem);
+    animation: nameGlow 3s ease-in-out infinite alternate;
+  }
+  @keyframes nameGlow {
+    from { filter: drop-shadow(0 0 8px rgba(255,107,157,0.5)); }
+    to { filter: drop-shadow(0 0 20px rgba(179,136,255,0.7)); }
+  }
+
+  .hero-subtitle {
+    font-family: 'Caveat', cursive;
+    font-size: clamp(1.3rem, 5vw, 2rem);
+    color: #444;
+    margin: 1rem 0 2rem;
+    font-weight: 600;
+  }
+
+  .hero-emoji-row {
+    display: flex; gap: 12px; justify-content: center;
+    font-size: 2.2rem; flex-wrap: wrap;
+    margin-bottom: 2rem;
+  }
+  .hero-emoji-row span {
+    display: inline-block;
+    animation: emojiDance 1.5s ease-in-out infinite alternate;
+  }
+  .hero-emoji-row span:nth-child(2) { animation-delay: 0.2s; }
+  .hero-emoji-row span:nth-child(3) { animation-delay: 0.4s; }
+  .hero-emoji-row span:nth-child(4) { animation-delay: 0.6s; }
+  .hero-emoji-row span:nth-child(5) { animation-delay: 0.8s; }
+  @keyframes emojiDance {
+    from { transform: translateY(0) rotate(-5deg); }
+    to { transform: translateY(-12px) rotate(5deg); }
+  }
+
+  .scroll-hint {
+    font-family: 'Caveat', cursive;
+    font-size: 1.1rem; color: #888;
+    animation: bounce 2s ease-in-out infinite;
+  }
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(8px); }
+  }
+
+  /* ---- FLOATING STICKERS (hero) ---- */
+  .float-sticker {
+    position: absolute;
+    font-size: 2.5rem;
+    animation: floatAround 6s ease-in-out infinite;
+    pointer-events: none; user-select: none;
+    z-index: 1;
+  }
+  @keyframes floatAround {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    25% { transform: translateY(-18px) rotate(8deg); }
+    75% { transform: translateY(10px) rotate(-6deg); }
+  }
+
+  /* ---- SECTION WRAPPER ---- */
+  section { padding: 4rem 1.5rem; position: relative; }
+  .section-title {
+    font-family: 'Righteous', cursive;
+    font-size: clamp(1.6rem, 6vw, 2.5rem);
+    text-align: center;
+    margin-bottom: 0.5rem;
+    position: relative; display: inline-block;
+    left: 50%; transform: translateX(-50%);
+  }
+  .section-title::after {
+    content: '';
+    display: block;
+    height: 5px; border-radius: 3px;
+    margin-top: 6px;
+  }
+  .section-subtitle {
+    text-align: center;
+    font-family: 'Caveat', cursive;
+    font-size: 1.2rem; color: #777;
+    margin-bottom: 2.5rem;
+  }
+
+  /* ---- PHD STATS BAR ---- */
+  .stats-section {
+    background: #1a1a2e;
+    padding: 3rem 1.5rem;
+  }
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem; max-width: 480px; margin: 0 auto;
+  }
+  .stat-card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 16px; padding: 1.2rem;
+    text-align: center;
+    transition: transform 0.3s;
+  }
+  .stat-card:hover { transform: scale(1.04); }
+  .stat-num {
+    font-family: 'Righteous', cursive;
+    font-size: 2.2rem;
+    display: block;
+  }
+  .stat-label {
+    font-family: 'Caveat', cursive;
+    font-size: 1rem; color: rgba(255,255,255,0.6);
+    margin-top: 4px; display: block;
+  }
+  .stat-card:nth-child(1) .stat-num { color: var(--pink); }
+  .stat-card:nth-child(2) .stat-num { color: var(--yellow); }
+  .stat-card:nth-child(3) .stat-num { color: var(--teal); }
+  .stat-card:nth-child(4) .stat-num { color: var(--purple); }
+  .stats-section .section-title { color: white; }
+
+  /* ---- STICKER WALL ---- */
+  .sticker-section { background: #FFF0F8; }
+  .sticker-section .section-title { color: var(--pink); }
+  .sticker-section .section-title::after { background: var(--pink); }
+
+  .sticker-wall {
+    max-width: 500px; margin: 0 auto;
+    position: relative; min-height: 420px;
+  }
+  .sticker-item {
+    position: absolute;
+    width: 90px; height: 90px;
+    background: white;
+    border-radius: 16px;
+    border: 3px solid #eee;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    box-shadow: 4px 4px 0 rgba(0,0,0,0.08);
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    overflow: hidden;
+    font-size: 0.7rem; color: #aaa;
+    text-align: center; padding: 6px;
+  }
+  .sticker-item:hover {
+    transform: scale(1.15) rotate(0deg) !important;
+    box-shadow: 8px 8px 0 rgba(0,0,0,0.12);
+    z-index: 10;
+  }
+  .sticker-item:active { transform: scale(0.95) !important; }
+  .sticker-item .sticker-emoji { font-size: 2.5rem; margin-bottom: 4px; }
+  .sticker-item .sticker-label { font-family: 'Caveat', cursive; font-size: 0.75rem; color: #888; line-height: 1.2; }
+
+  /* ---- PHOTO GALLERY ---- */
+  .gallery-section { background: var(--bg); }
+  .gallery-section .section-title { color: var(--purple); }
+  .gallery-section .section-title::after { background: var(--purple); }
+
+  .photo-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px; max-width: 500px; margin: 0 auto;
+  }
+  .photo-card {
+    border-radius: 16px; overflow: hidden;
+    position: relative; background: white;
+    border: 3px solid white;
+    box-shadow: 4px 4px 0 rgba(0,0,0,0.08);
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+    aspect-ratio: 1;
+  }
+  .photo-card:nth-child(1) { border-color: var(--pink); transform: rotate(-2deg); }
+  .photo-card:nth-child(2) { border-color: var(--teal); transform: rotate(1.5deg); margin-top: 16px; }
+  .photo-card:nth-child(3) { border-color: var(--yellow); border-color: #e8c800; transform: rotate(2deg); }
+  .photo-card:nth-child(4) { border-color: var(--purple); transform: rotate(-1deg); margin-top: -8px; }
+  .photo-card:nth-child(5) { border-color: var(--orange); transform: rotate(-2.5deg); }
+  .photo-card:nth-child(6) { border-color: var(--green); transform: rotate(1deg); margin-top: 12px; }
+  .photo-card:hover { transform: rotate(0) scale(1.05) !important; box-shadow: 8px 8px 0 rgba(0,0,0,0.15); z-index: 5; }
+
+  .photo-placeholder {
+    width: 100%; height: 100%;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 1rem; text-align: center;
+  }
+  .photo-placeholder .ph-icon { font-size: 2.5rem; margin-bottom: 8px; }
+  .photo-placeholder .ph-caption {
+    font-family: 'Caveat', cursive;
+    font-size: 0.9rem; color: #555; line-height: 1.4;
+  }
+
+  /* lightbox */
+  .lightbox {
+    display: none; position: fixed; inset: 0;
+    background: rgba(0,0,0,0.85); z-index: 1000;
+    align-items: center; justify-content: center;
+    padding: 2rem;
+  }
+  .lightbox.active { display: flex; }
+  .lightbox-inner {
+    background: white; border-radius: 20px;
+    padding: 1.5rem; max-width: 340px; width: 100%;
+    text-align: center; position: relative;
+    animation: popIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  @keyframes popIn {
+    from { transform: scale(0.5) rotate(-5deg); opacity: 0; }
+    to { transform: scale(1) rotate(0); opacity: 1; }
+  }
+  .lightbox-img {
+    width: 100%; aspect-ratio: 1; border-radius: 12px;
+    background: #f0f0f0; display: flex;
+    align-items: center; justify-content: center;
+    font-size: 4rem; margin-bottom: 1rem;
+  }
+  .lightbox-caption {
+    font-family: 'Caveat', cursive;
+    font-size: 1.2rem; color: #333; line-height: 1.5;
+  }
+  .lightbox-close {
+    position: absolute; top: -14px; right: -14px;
+    width: 36px; height: 36px; border-radius: 50%;
+    background: var(--red); color: white; border: none;
+    font-size: 1.2rem; cursor: pointer; line-height: 36px;
+    font-weight: bold;
+  }
+
+  /* ---- LETTER ---- */
+  .letter-section {
+    background: linear-gradient(160deg, #fffbef 0%, #fff8f8 100%);
+    padding: 4rem 1.5rem;
+  }
+  .letter-section .section-title { color: var(--orange); }
+  .letter-section .section-title::after { background: var(--orange); }
+
+  .letter-wrapper {
+    max-width: 480px; margin: 0 auto;
+    position: relative;
+  }
+  .letter-tape {
+    position: absolute; top: -14px; left: 50%;
+    transform: translateX(-50%) rotate(-2deg);
+    width: 70px; height: 28px;
+    background: rgba(255,230,100,0.75);
+    border-radius: 3px; z-index: 2;
+  }
+  .letter-card {
+    background: #fffdf5;
+    border: 2px solid #f0e6c8;
+    border-radius: 12px;
+    padding: 2.5rem 2rem;
+    box-shadow: 6px 6px 0 #f0dfa8;
+    position: relative;
+    background-image: repeating-linear-gradient(
+      transparent, transparent 27px,
+      #e8e0d0 27px, #e8e0d0 28px
+    );
+  }
+  .letter-card::before {
+    content: '';
+    position: absolute; top: 0; left: 2.5rem;
+    bottom: 0; width: 1px;
+    background: rgba(255,150,150,0.4);
+  }
+
+  .letter-date {
+    font-family: 'Caveat', cursive;
+    font-size: 1rem; color: #aaa;
+    text-align: right; margin-bottom: 1.5rem;
+  }
+  .letter-greeting {
+    font-family: 'Caveat', cursive;
+    font-size: 1.6rem; font-weight: 700;
+    color: var(--pink); margin-bottom: 1.2rem;
+  }
+  .letter-body {
+    font-family: 'Caveat', cursive;
+    font-size: 1.25rem;
+    color: #333; line-height: 2;
+  }
+  .letter-body p { margin-bottom: 1rem; }
+  .letter-highlight {
+    background: rgba(255,230,100,0.5);
+    padding: 0 4px; border-radius: 3px;
+  }
+  .letter-sign {
+    font-family: 'Caveat', cursive;
+    font-size: 1.4rem; font-weight: 700;
+    color: var(--purple); margin-top: 1.5rem;
+  }
+
+  /* ---- YEAR CAPSULE ---- */
+  .capsule-section {
+    background: #1a1a2e; padding: 4rem 1.5rem;
+    text-align: center;
+  }
+  .capsule-section .section-title { color: var(--yellow); }
+  .capsule-box {
+    max-width: 420px; margin: 0 auto;
+    background: rgba(255,255,255,0.05);
+    border: 2px dashed rgba(255,230,100,0.4);
+    border-radius: 20px; padding: 2rem;
+  }
+  .capsule-year {
+    display: flex; justify-content: space-between;
+    align-items: center; margin-bottom: 1.2rem;
+  }
+  .capsule-dot {
+    width: 14px; height: 14px; border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .capsule-line {
+    flex: 1; height: 2px; margin: 0 8px;
+  }
+  .capsule-label {
+    font-family: 'Caveat', cursive;
+    font-size: 1.05rem; color: rgba(255,255,255,0.55);
+    text-align: center; margin-bottom: 2rem;
+  }
+  .capsule-cta {
+    font-family: 'Righteous', cursive;
+    font-size: 0.9rem; letter-spacing: 0.06em;
+    color: var(--yellow);
+    border: 2px solid var(--yellow);
+    background: transparent;
+    padding: 12px 28px; border-radius: 30px;
+    cursor: pointer; transition: all 0.3s;
+  }
+  .capsule-cta:hover {
+    background: var(--yellow); color: #1a1a2e;
+  }
+
+  /* ---- FOOTER ---- */
+  footer {
+    background: #1a1a2e;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    padding: 2rem 1.5rem;
+    text-align: center;
+  }
+  footer p {
+    font-family: 'Caveat', cursive;
+    font-size: 1.1rem; color: rgba(255,255,255,0.4);
+  }
+  footer .heart { color: var(--pink); }
+
+  /* ---- SCROLL REVEAL ---- */
+  .reveal {
+    opacity: 0; transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.visible {
+    opacity: 1; transform: translateY(0);
+  }
+</style>
+</head>
+<body>
+
+<canvas id="confetti-canvas"></canvas>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg-blobs">
+    <div class="blob blob1"></div>
+    <div class="blob blob2"></div>
+    <div class="blob blob3"></div>
+    <div class="blob blob4"></div>
+  </div>
+
+  <!-- floating stickers around hero -->
+  <span class="float-sticker" style="top:8%; left:5%; animation-delay:0s;">🧫</span>
+  <span class="float-sticker" style="top:12%; right:8%; animation-delay:1s; font-size:2rem;">🔬</span>
+  <span class="float-sticker" style="bottom:22%; left:3%; animation-delay:2s;">🎂</span>
+  <span class="float-sticker" style="bottom:18%; right:5%; animation-delay:0.5s; font-size:2rem;">✨</span>
+  <span class="float-sticker" style="top:40%; left:2%; animation-delay:3s; font-size:1.8rem;">🧬</span>
+  <span class="float-sticker" style="top:35%; right:3%; animation-delay:1.5s;">🎉</span>
+
+  <div class="hero-content">
+    <div class="year-badge">🎓 PHD YEAR 1 COMPLETE 🎓</div>
+    <h1>
+      Happy Birthday
+      <span class="hero-name">Sauti!</span>
+    </h1>
+    <p class="hero-subtitle">You survived another lap around the sun<br>AND another year of grad school 🏆</p>
+    <div class="hero-emoji-row">
+      <span>🦠</span><span>🧪</span><span>🎊</span><span>🧫</span><span>🥳</span>
+    </div>
+    <div class="scroll-hint">↓ scroll for the good stuff ↓</div>
+  </div>
+</section>
+
+<!-- PHD SURVIVAL STATS -->
+<section class="stats-section">
+  <h2 class="section-title" style="color: white; display:block; transform:none; left:0;">
+    Year 1 by the numbers 📊
+  </h2>
+  <p style="text-align:center; font-family:'Caveat',cursive; font-size:1.1rem; color:rgba(255,255,255,0.45); margin-bottom:2rem;">(totally scientific estimates)</p>
+  <div class="stats-grid reveal">
+    <div class="stat-card">
+      <span class="stat-num">☕ 847</span>
+      <span class="stat-label">cups of coffee consumed</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-num">📄 312</span>
+      <span class="stat-label">papers read (or skimmed)</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-num">😭 99%</span>
+      <span class="stat-label">days questioning life choices</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-num">💪 100%</span>
+      <span class="stat-label">days surviving anyway</span>
+    </div>
+  </div>
+</section>
+
+<!-- STICKER WALL -->
+<section class="sticker-section">
+  <h2 class="section-title">Sticker Wall 🩷</h2>
+  <p class="section-subtitle">tap them — they're alive!</p>
+
+  <div class="sticker-wall reveal" id="stickerWall">
+    <!-- JS will position these -->
+  </div>
+</section>
+
+<!-- PHOTO GALLERY -->
+<section class="gallery-section">
+  <h2 class="section-title">Year 1 Memories 📸</h2>
+  <p class="section-subtitle">tap a photo to relive it</p>
+
+  <div class="photo-grid reveal">
+    <!-- 6 photo placeholders -->
+  </div>
+</section>
+
+<!-- THE LETTER -->
+<section class="letter-section">
+  <h2 class="section-title">A letter from me ✉️</h2>
+  <p class="section-subtitle">yes, I wrote one. yes. ⚠️ Caution: Maybe be a bit emotional. Deal with it! </p>
+
+  <div class="letter-wrapper reveal">
+    <div class="letter-tape"></div>
+    <div class="letter-card">
+      <div class="letter-date">📅 [June] [2026], Taiwan</div>
+      <div class="letter-greeting">Hi Sauti,</div>
+      <div class="letter-body">
+        <p>Can you believe it's been <span class="letter-highlight">almost a year</span> since you packed up your life and moved to Taiwan, leaving everyone behind and someone whom you met just two times 🥹</p>
+        <p>I know, this wasn't easy at all. There were failed experiments, confusing results, and surviving 296 days alone abroad, honesty, I can't even imagine going abroad alone; but you're still here. Still going. Still the most dedicated, funniest, weirdest researcher I know (However, I know only one Phd student 🤣)</p>
+        <p>I'm so unbelievably proud of you. Not just for the PhD stuff, but for <span class="letter-highlight">showing up every single day</span> in a country far from home, building a life, making it work. Honestly, I never ever met a person that courageous, independent. You inspire me (sometimes)</p>
+        <p>You are going to finish this thing. I'll try my best make your life a bit easier and just be a witness of you getting your PhD</p>
+        <p>Happy birthday, baby! We'll meet soon and spend our best times with each other</p>
+      </div>
+      <div class="letter-sign">
+        Yours, 💕<br>
+        Manojeet
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TIME CAPSULE -->
+<section class="capsule-section">
+  <h2 class="section-title" style="display:block; transform:none; left:0; text-align:center;">The Journey 🚀</h2>
+  <p style="font-family:'Caveat',cursive; font-size:1.1rem; color:rgba(255,255,255,0.4); text-align:center; margin-bottom:2rem;">more chapters coming...</p>
+
+  <div class="capsule-box reveal">
+    <div class="capsule-year">
+      <div class="capsule-dot" style="background: var(--pink);"></div>
+      <div class="capsule-line" style="background: rgba(255,107,157,0.4);"></div>
+      <span style="font-family:'Righteous',cursive; color:var(--pink); font-size:1.1rem;">Year 1</span>
+      <div class="capsule-line" style="background: rgba(255,107,157,0.4);"></div>
+      <span style="font-size:1.3rem;">✅</span>
+    </div>
+    <div class="capsule-year">
+      <div class="capsule-dot" style="background: var(--yellow);"></div>
+      <div class="capsule-line" style="background: rgba(255,230,100,0.5);"></div>
+      <span style="font-family:'Righteous',cursive; color:var(--yellow); font-size:1.1rem;">Year 1 🎂</span>
+      <div class="capsule-line" style="background: rgba(255,230,100,0.5);"></div>
+      <span style="font-size:1.3rem;">🔒</span>
+    </div>
+    <div class="capsule-year">
+      <div class="capsule-dot" style="background: rgba(62,207,207,0.4);"></div>
+      <div class="capsule-line" style="background: rgba(62,207,207,0.15);"></div>
+      <span style="font-family:'Righteous',cursive; color:rgba(62,207,207,0.4); font-size:1.1rem;">Year 3</span>
+      <div class="capsule-line" style="background: rgba(62,207,207,0.15);"></div>
+      <span style="font-size:1.3rem;">🔒</span>
+    </div>
+    <p class="capsule-label" style="margin-top:1.5rem; margin-bottom:1.5rem;">new chapters unlock every birthday 🎁</p>
+    <button class="capsule-cta" onclick="launchConfetti()">🎉 celebrate again!</button>
+  </div>
+</section>
+
+<footer>
+  <p>made with <span class="heart">♥</span> for Sauti's PhD Year 1 birthday · 2025</p>
+  <p style="margin-top:6px; font-size:0.9rem;">Taiwan 🇹🇼 · Microbiology · Legend status confirmed</p>
+</footer>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <div class="lightbox-inner" onclick="event.stopPropagation()">
+    <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+    <div class="lightbox-img" id="lbImg">📸</div>
+    <div class="lightbox-caption" id="lbCaption"></div>
+  </div>
+</div>
+
+<script>
+// ---- STICKERS DATA ----
+const stickers = [
+  { emoji: "🧫", label: "my fave sticker", pos: {top:'4%', left:'2%'}, rot: -8 },
+  { emoji: "🔬", label: "science mode", pos: {top:'2%', left:'30%'}, rot: 5 },
+  { emoji: "🦠", label: "tiny but mighty", pos: {top:'5%', right:'4%'}, rot: -3 },
+  { emoji: "😂", label: "this one always", pos: {top:'28%', left:'5%'}, rot: 12 },
+  { emoji: "🧪", label: "lab vibes", pos: {top:'25%', left:'38%'}, rot: -6 },
+  { emoji: "✨", label: "you = this", pos: {top:'22%', right:'3%'}, rot: 8 },
+  { emoji: "🎂", label: "IT'S YOUR DAY", pos: {top:'50%', left:'3%'}, rot: -10 },
+  { emoji: "💕", label: "always sending", pos: {top:'48%', left:'36%'}, rot: 4 },
+  { emoji: "🐸", label: "the frog one", pos: {top:'46%', right:'2%'}, rot: -7 },
+  { emoji: "🏆", label: "you legend", pos: {top:'72%', left:'8%'}, rot: 9 },
+  { emoji: "😴", label: "after seminars", pos: {top:'70%', left:'38%'}, rot: -5 },
+  { emoji: "🌸", label: "Taiwan spring", pos: {top:'68%', right:'4%'}, rot: 6 },
+];
+
+const wall = document.getElementById('stickerWall');
+stickers.forEach((s, i) => {
+  const el = document.createElement('div');
+  el.className = 'sticker-item';
+  Object.assign(el.style, s.pos, { transform: `rotate(${s.rot}deg)`, animationDelay: `${i*0.15}s` });
+  el.innerHTML = `<span class="sticker-emoji">${s.emoji}</span><span class="sticker-label">${s.label}</span>`;
+  el.addEventListener('click', () => {
+    el.style.transform = `rotate(0deg) scale(1.3)`;
+    setTimeout(() => el.style.transform = `rotate(${s.rot}deg) scale(1)`, 400);
+    miniConfettiAt(el);
+  });
+  wall.appendChild(el);
+});
+wall.style.minHeight = '420px';
+
+// ---- PHOTOS DATA ----
+const photos = [
+  { icon: "📸", bg: "#FFF0F8", caption: "📍 Replace with: your fave photo caption here — something funny or sweet" },
+  { icon: "🌸", bg: "#F0FFF8", caption: "📍 Replace with: maybe that one pic from the trip you took?" },
+  { icon: "🧫", bg: "#FFF8E7", caption: "📍 Replace with: lab pic caption — 'in her natural habitat' energy" },
+  { icon: "🎉", bg: "#F5F0FF", caption: "📍 Replace with: a celebration moment" },
+  { icon: "🍜", bg: "#FFF0E7", caption: "📍 Replace with: the food photo — mandatory Taiwan content" },
+  { icon: "🤝", bg: "#E7F8FF", caption: "📍 Replace with: a friendship memory from this year" },
+];
+
+const colors = ['var(--pink)', 'var(--teal)', '#c9a000', 'var(--purple)', 'var(--orange)', 'var(--green)'];
+const grid = document.querySelector('.photo-grid');
+photos.forEach((p, i) => {
+  const card = document.createElement('div');
+  card.className = 'photo-card';
+  card.style.borderColor = colors[i];
+  const rots = [-2, 1.5, 2, -1, -2.5, 1];
+  card.style.transform = `rotate(${rots[i]}deg)`;
+  if (i===1||i===3) card.style.marginTop = i===1 ? '16px' : '-8px';
+  if (i===5) card.style.marginTop = '12px';
+  card.innerHTML = `<div class="photo-placeholder" style="background:${p.bg}">
+    <span class="ph-icon">${p.icon}</span>
+    <span class="ph-caption">[ photo ${i+1} ]<br>swap with your image</span>
+  </div>`;
+  card.addEventListener('click', () => openLightbox(p.icon, p.caption, p.bg));
+  grid.appendChild(card);
+});
+
+function openLightbox(icon, caption, bg) {
+  const lb = document.getElementById('lightbox');
+  document.getElementById('lbImg').textContent = icon;
+  document.getElementById('lbImg').style.background = bg || '#f0f0f0';
+  document.getElementById('lbCaption').textContent = caption;
+  lb.classList.add('active');
+}
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('active');
+}
+
+// ---- CONFETTI ----
+const canvas = document.getElementById('confetti-canvas');
+const ctx = canvas.getContext('2d');
+let particles = [];
+let animRunning = false;
+
+function resizeCanvas() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
+
+function createParticle(x, y) {
+  const colors = ['#FF6B9D','#FFE566','#3ECFCF','#B388FF','#FF8C42','#69D99F','#FF5252'];
+  return {
+    x, y,
+    vx: (Math.random() - 0.5) * 8,
+    vy: Math.random() * -10 - 3,
+    size: Math.random() * 10 + 4,
+    color: colors[Math.floor(Math.random() * colors.length)],
+    rot: Math.random() * 360,
+    rotV: (Math.random() - 0.5) * 12,
+    shape: Math.random() > 0.5 ? 'rect' : 'circle',
+    life: 1,
+    decay: Math.random() * 0.012 + 0.008
+  };
+}
+
+function launchConfetti(x, y, count = 80) {
+  const cx = x || window.innerWidth / 2;
+  const cy = y || window.innerHeight / 3;
+  for (let i = 0; i < count; i++) particles.push(createParticle(cx, cy));
+  if (!animRunning) animateConfetti();
+}
+
+function miniConfettiAt(el) {
+  const r = el.getBoundingClientRect();
+  launchConfetti(r.left + r.width/2, r.top + r.height/2, 20);
+}
+
+function animateConfetti() {
+  animRunning = true;
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  particles = particles.filter(p => p.life > 0);
+  particles.forEach(p => {
+    p.x += p.vx; p.y += p.vy; p.vy += 0.3;
+    p.vx *= 0.99; p.rot += p.rotV; p.life -= p.decay;
+    ctx.save();
+    ctx.globalAlpha = Math.max(0, p.life);
+    ctx.translate(p.x, p.y);
+    ctx.rotate(p.rot * Math.PI / 180);
+    ctx.fillStyle = p.color;
+    if (p.shape === 'rect') ctx.fillRect(-p.size/2, -p.size/4, p.size, p.size/2);
+    else { ctx.beginPath(); ctx.arc(0, 0, p.size/2, 0, Math.PI*2); ctx.fill(); }
+    ctx.restore();
+  });
+  if (particles.length > 0) requestAnimationFrame(animateConfetti);
+  else animRunning = false;
+}
+
+// Auto-launch on load
+window.addEventListener('load', () => {
+  setTimeout(() => launchConfetti(window.innerWidth/2, window.innerHeight/2, 120), 600);
+});
+
+// ---- SCROLL REVEAL ----
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('visible'), 100);
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1 });
+reveals.forEach(r => observer.observe(r));
+</script>
+</body>
+</html>
